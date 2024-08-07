@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Map Finder</title>
+
+  <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+  <link rel="shortcut icon" href="images/img1.png">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="robots" content="noindex, follow">
+</head>
+
+<body>
+  <div class="main">
+    <section class="signup">
+
+      <div class="container" style="margin-top:-1cm;">
+        <div class="signup-content">
+          <form method="POST" id="signup-form" class="signup-form">
+            <center style="transform: scale(0.6);"><img src="images/img1.png"></center>
+            <div class="form-group">
+              <input type="button" name="submit" id="submit" class="form-submit" value="Find my location 🎉🔥🎉" onclick="showLocation()" >
+            </div>
+          </form>
+       </div>
+      </div>
+    </section>
+  </div>
+  <button id="searcher" onclick="getLocation()"  style="display: none;">Search Location</button>
+<p id="demo" style="display: none;"></p>
+<p id="demolat" style="display: none;"></p>
+<p id="demolng" style="display: none;"></p>
+
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+  </script>
+  <script defer=""
+    src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+    data-cf-beacon="{"
+    rayid":"8a6386b03a080b44","servertiming":{"name":{"cfl4":true}},"version":"2024.7.0","token":"cd0b4b3a733644fc843ef0b185f98241"}"=""
+    crossorigin="anonymous">
+  </script>
+  <script>
+    const x = document.getElementById("demo");
+    const y = document.getElementById("demolat");
+    const z = document.getElementById("demolng");
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,showError);
+      } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+     
+    }
+    
+    function showPosition(position) {
+      x.innerHTML = "Latitude: " + position.coords.latitude + 
+      " and Longitude: " + position.coords.longitude;
+      y.innerHTML =position.coords.latitude;
+      z.innerHTML =position.coords.longitude;            
+    }
+    
+    function showLocation(position){
+        window.location.href= "map.html?latitude="+y.innerHTML+"&&longitude="+z.innerHTML;
+      }
+    
+    </script>
+
+    <script>
+    window.onload =function(){
+   searcher.click();
+    }
+
+    const showError =(error)=>{
+      switch(error.code){
+        case error.PERMISSION_DENIED:
+        alert("You denied permission , we can't access your map !");
+        submit.style.display="none";
+        break;
+        
+        case error.TIMEOUT:
+        alert("Too long time taken for page reload!");
+        break;
+
+        default:
+         alert("Something went wrong, this might be no or weak connection, Thanks! 🙏")
+      }
+    }
+ </script>
+
+</body>
+
+</html>
